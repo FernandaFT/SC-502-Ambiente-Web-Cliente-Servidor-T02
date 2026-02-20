@@ -1,5 +1,6 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . "/SC-502-Ambiente-Web-Cliente-Servidor-T02/View/layout.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/SC-502-Ambiente-Web-Cliente-Servidor-T02/Controller/HomeController.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,26 +26,31 @@ MostrarCSS();
                                 <div class="card-body">
                                     <img src="../assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                                     <h4 class="card-title text-center text-white">Registro Vendedores</h4>
-                                    
-                                    <form class="forms-sample">
+                                    <?php
+                                        if(isset($_POST["Mensaje"])){
+                                            echo $_POST["Mensaje"];
+                                        }  
+                                    ?>
+                                    <form class="forms-sample" action="" method="POST">
 
                                         <div class="form-group">
                                             <label>Cédula</label>
-                                            <input type="text" class="form-control" id="Cedula" placeholder="Cédula">
+                                            <input type="text" class="form-control" id="Cedula" name="Cedula" placeholder="Cédula">
                                         </div>
 
                                         <div class="form-group">
                                             <label>Nombre</label>
-                                            <input type="text" class="form-control" id="Nombre" placeholder="Nombre">
+                                            <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Nombre">
                                         </div>
 
                                         <div class="form-group">
                                             <label>Correo Electrónico</label>
-                                            <input type="email" class="form-control" id="Correo" placeholder="Correo">
+                                            <input type="email" class="form-control" id="Correo" name="Correo" placeholder="Correo">
                                         </div>
 
-                                        <button type="submit" class="btn btn-gradient-danger btn-rounded btn-fw me-2">Procesar</button>
+                                        <button type="submit" id="btnRegistrarV" name="btnRegistrarV" class="btn btn-gradient-danger btn-rounded btn-fw me-2">Procesar</button>
                                     </form>
+
                                 </div>
                             </div>
                         </div>

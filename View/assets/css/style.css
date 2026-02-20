@@ -26285,7 +26285,8 @@ dl li {
     width: 100%;
     -webkit-flex-grow: 1;
     flex-grow: 1;
-    min-height: 89vh;
+    min-height: 100vh;
+    padding-bottom: 0px !important;
 }
 .main-panel-body {
     width: 100% !important;
