@@ -1,9 +1,0 @@
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_RegistrarV`(
-	pCedula varchar(50),
-    pNombre varchar(100),
-    pCorreo varchar(100)
-)
-BEGIN
-	INSERT INTO vendedores(Cedula ,Nombre, Correo, Estado)
-	VALUES(pCedula, pNombre, pCorreo,1);
-END
