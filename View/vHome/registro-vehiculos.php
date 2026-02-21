@@ -1,5 +1,9 @@
 <?php
+$mensaje = "";
 include_once $_SERVER["DOCUMENT_ROOT"] . "/SC-502-Ambiente-Web-Cliente-Servidor-T02/View/layout.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/SC-502-Ambiente-Web-Cliente-Servidor-T02/Model/HomeModel.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/SC-502-Ambiente-Web-Cliente-Servidor-T02/Controller/HomeController.php";
+$vendedores = ConsultarVendedores();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +30,11 @@ MostrarCSS();
                                     <img src="../assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                                     <h4 class="card-title text-center text-white">Registro Vehículos</h4>
 
-                                    <form class="forms-sample">
+                                    <?php if (!empty($mensaje)) { ?>
+                                        <div class="alert alert-danger mt-3"><?php echo $mensaje; ?></div>
+                                    <?php } ?>
+
+                                    <form class="forms-sample" action="" method="POST">
 
                                         <div class="form-group">
                                             <label>Marca</label>
@@ -53,15 +61,27 @@ MostrarCSS();
                                             <label>Vendedor</label>
                                             <select id="IdVendedor" name="IdVendedor" class="form-control" required>
                                                 <option value="">Seleccione un vendedor</option>
+                                                <?php if ($vendedores && $vendedores->num_rows > 0) { ?>
 
-                                                <!-- Aquí debes cargar los vendedores dinámicamente -->
-                                                <!-- Ejemplo estático -->
-                                                <option value="1">Juan Pérez</option>
-                                                <option value="2">María López</option>
+                                                    <?php while ($row = $vendedores->fetch_assoc()) { ?>
+                                                        <option value="<?php echo htmlspecialchars($row["IdVendedor"]); ?>">
+                                                            <?php echo htmlspecialchars($row["Nombre"]); ?>
+                                                        </option>
+                                                    <?php } ?>
+
+                                                <?php } else { ?>
+
+                                                    <option value="">No hay vendedores registrados</option>
+
+                                                <?php } ?>
                                             </select>
                                         </div>
 
-                                        <button type="submit" class="btn btn-gradient-danger btn-rounded btn-fw me-2">Procesar</button>
+                                        <button type="submit" id="btnRegistrarVehiculo"
+                                            name="btnRegistrarVehiculo"
+                                            class="btn btn-gradient-danger btn-rounded btn-fw me-2">
+                                            Procesar
+                                        </button>
                                     </form>
                                 </div>
                             </div>

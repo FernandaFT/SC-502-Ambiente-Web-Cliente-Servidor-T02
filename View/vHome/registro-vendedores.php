@@ -1,6 +1,7 @@
 <?php
+$mensaje = "";
 include_once $_SERVER["DOCUMENT_ROOT"] . "/SC-502-Ambiente-Web-Cliente-Servidor-T02/View/layout.php";
-include_once $_SERVER["DOCUMENT_ROOT"]."/SC-502-Ambiente-Web-Cliente-Servidor-T02/Controller/HomeController.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/SC-502-Ambiente-Web-Cliente-Servidor-T02/Controller/HomeController.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,11 +27,11 @@ MostrarCSS();
                                 <div class="card-body">
                                     <img src="../assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                                     <h4 class="card-title text-center text-white">Registro Vendedores</h4>
-                                    <?php
-                                        if(isset($_POST["Mensaje"])){
-                                            echo $_POST["Mensaje"];
-                                        }  
-                                    ?>
+
+                                    <?php if (!empty($mensaje)) { ?>
+                                        <div class="alert alert-danger mt-3"><?php echo $mensaje; ?></div>
+                                    <?php } ?>
+
                                     <form class="forms-sample" action="" method="POST">
 
                                         <div class="form-group">
@@ -48,7 +49,11 @@ MostrarCSS();
                                             <input type="email" class="form-control" id="Correo" name="Correo" placeholder="Correo">
                                         </div>
 
-                                        <button type="submit" id="btnRegistrarV" name="btnRegistrarV" class="btn btn-gradient-danger btn-rounded btn-fw me-2">Procesar</button>
+                                        <button type="submit" id="btnRegistrarV" 
+                                                name="btnRegistrarV"
+                                                class="btn btn-gradient-danger btn-rounded btn-fw me-2">
+                                                Procesar
+                                        </button>
                                     </form>
 
                                 </div>

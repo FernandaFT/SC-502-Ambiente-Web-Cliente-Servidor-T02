@@ -15,3 +15,25 @@ function RegistrarV($cedula, $nombre, $correo)
     CloseDataBase($context);
     return $result;
 }
+
+function ConsultarVendedores()
+{
+    $context = OpenDataBase();
+
+    $sql = "CALL sp_ConsultarVendedores()";
+    $result = $context->query($sql);
+
+    CloseDataBase($context);
+    return $result;
+}
+
+function RegistrarVehiculo($marca, $modelo, $color, $precio, $idVendedor)
+{
+    $context = OpenDataBase();
+
+    $sql = "CALL sp_RegistrarVehiculo('$marca', '$modelo', '$color', $precio, $idVendedor)";
+    $result = $context->query($sql);
+
+    CloseDataBase($context);
+    return $result;
+}
