@@ -32,7 +32,7 @@ MostrarCSS();
                                         <div class="alert alert-danger mt-3"><?php echo $mensaje; ?></div>
                                     <?php } ?>
 
-                                    <form class="forms-sample" action="" method="POST">
+                                    <form class="forms-sample" action="" method="POST" id="formRegistroV">
 
                                         <div class="form-group">
                                             <label>Cédula</label>
@@ -72,7 +72,10 @@ MostrarCSS();
         <?php
         MostrarJS();
         ?>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 
+        <script src="../assets/funciones/registroV.js"></script>
 </body>
 
 </html>

@@ -17,10 +17,7 @@ function MostrarCSS()
             <link rel="stylesheet" href="../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
 
             <link rel="stylesheet" href="../assets/css/style.css">
-
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
-
+        
         </head>';
 }
 
@@ -50,7 +47,8 @@ function MostrarFooter()
 function MostrarJS()
 {
     echo
-        '<script src="../assets/vendors/js/vendor.bundle.base.js"></script>
+        '
+        <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
 
         <script src="../assets/vendors/chart.js/chart.umd.js"></script>
         <script src="../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>

@@ -34,7 +34,7 @@ CREATE TABLE `vehiculos` (
   PRIMARY KEY (`IdVehiculo`),
   KEY `FK_Vehiculos_Vendedores` (`IdVendedor`),
   CONSTRAINT `FK_Vehiculos_Vendedores` FOREIGN KEY (`IdVendedor`) REFERENCES `vendedores` (`IdVendedor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +43,7 @@ CREATE TABLE `vehiculos` (
 
 LOCK TABLES `vehiculos` WRITE;
 /*!40000 ALTER TABLE `vehiculos` DISABLE KEYS */;
+INSERT INTO `vehiculos` VALUES (1,'MINI','MINI','Blanco',233444.00,5),(2,'BMW','X7','Rojo',2300000.00,6),(3,'Audi','A5','Gris',2300000.00,15);
 /*!40000 ALTER TABLE `vehiculos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,7 +61,7 @@ CREATE TABLE `vendedores` (
   `Correo` varchar(100) NOT NULL,
   `Estado` bit(1) NOT NULL,
   PRIMARY KEY (`IdVendedor`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,13 +70,62 @@ CREATE TABLE `vendedores` (
 
 LOCK TABLES `vendedores` WRITE;
 /*!40000 ALTER TABLE `vendedores` DISABLE KEYS */;
-INSERT INTO `vendedores` VALUES (5,'800600076','Ana Torres','atorres@gmail.com',_binary '');
+INSERT INTO `vendedores` VALUES (5,'800600076','Ana Torres','atorres@gmail.com',_binary ''),(6,'116700557','Fernanda Fajardo','ffajardo@gmail.com',_binary ''),(7,'116700558','Maria Fajardo','mfajardo@gmail.com',_binary ''),(8,'613400447','Snowball Fajardo','snowf@gmail.com',_binary ''),(9,'563499114','Bluey Fajardo','blueyf@gmail.com',_binary ''),(10,'225588336','Samuel Quesada','samuq@gmail.com',_binary ''),(11,'556677889','Peggy Fajardo','peggyf@gmail.com',_binary ''),(12,'668833551','Elena Quesada','elenaq@gmail.com',_binary ''),(13,'442277112','Carlos Fajardo','carlosf@gmail.com',_binary ''),(15,'112388778','Gerardo Fajardo','gera@gmail.com',_binary '');
 /*!40000 ALTER TABLE `vendedores` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
 -- Dumping routines for database 'practica2'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `sp_ConsultarVehiculos` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ConsultarVehiculos`()
+BEGIN
+    SELECT 
+        vdr.Cedula,
+        vdr.Nombre,
+        vh.Marca,
+        vh.Modelo,
+        vh.Precio
+    FROM vehiculos vh
+    INNER JOIN vendedores vdr ON vdr.IdVendedor = vh.IdVendedor
+    ORDER BY vh.IdVehiculo DESC;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_ConsultarVendedores` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ConsultarVendedores`()
+BEGIN
+	SELECT IdVendedor, Nombre
+    FROM vendedores
+    WHERE Estado = b'1'
+    ORDER BY Nombre;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_RegistrarV` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -100,6 +150,32 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_RegistrarVehiculo` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_RegistrarVehiculo`(
+	pMarca VARCHAR(100),
+    pModelo VARCHAR(100),
+    pColor VARCHAR(100),
+    pPrecio DECIMAL(18,2),
+    pIdVendedor INT
+)
+BEGIN
+	INSERT INTO vehiculos (Marca, Modelo, Color, Precio, IdVendedor)
+    VALUES (pMarca, pModelo, pColor, pPrecio, pIdVendedor);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -110,4 +186,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-02-20 17:03:57
+-- Dump completed on 2026-02-20 19:54:49

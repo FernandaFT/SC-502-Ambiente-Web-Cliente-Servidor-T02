@@ -1,0 +1,48 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_RegistrarV`(
+	pCedula varchar(50),
+    pNombre varchar(100),
+    pCorreo varchar(100)
+)
+BEGIN
+	INSERT INTO vendedores(Cedula ,Nombre, Correo, Estado)
+	VALUES(pCedula, pNombre, pCorreo,1);
+END
+
+------- 
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_RegistrarVehiculo`(
+	pMarca VARCHAR(100),
+    pModelo VARCHAR(100),
+    pColor VARCHAR(100),
+    pPrecio DECIMAL(18,2),
+    pIdVendedor INT
+)
+BEGIN
+	INSERT INTO vehiculos (Marca, Modelo, Color, Precio, IdVendedor)
+    VALUES (pMarca, pModelo, pColor, pPrecio, pIdVendedor);
+END
+
+-------
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ConsultarVendedores`()
+BEGIN
+	SELECT IdVendedor, Nombre
+    FROM vendedores
+    WHERE Estado = b'1'
+    ORDER BY Nombre;
+END
+
+-------
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_ConsultarVehiculos`()
+BEGIN
+    SELECT 
+        vdr.Cedula,
+        vdr.Nombre,
+        vh.Marca,
+        vh.Modelo,
+        vh.Precio
+    FROM vehiculos vh
+    INNER JOIN vendedores vdr ON vdr.IdVendedor = vh.IdVendedor
+    ORDER BY vh.IdVehiculo DESC;
+END
