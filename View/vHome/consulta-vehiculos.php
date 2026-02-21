@@ -1,5 +1,9 @@
 <?php
+$mensaje = "";
 include_once $_SERVER["DOCUMENT_ROOT"] . "/SC-502-Ambiente-Web-Cliente-Servidor-T02/View/layout.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/SC-502-Ambiente-Web-Cliente-Servidor-T02/Model/HomeModel.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/SC-502-Ambiente-Web-Cliente-Servidor-T02/Controller/HomeController.php";
+$vehiculos = ConsultarVehiculos();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,13 +53,21 @@ MostrarCSS();
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>116700557</td>
-                                                        <td>Fernanda Fajardo</td>
-                                                        <td>MINI</td>
-                                                        <td>Countryman</td>
-                                                        <td>3500000</td>
-                                                    </tr>
+                                                    <?php if ($vehiculos && $vehiculos->num_rows > 0) { ?>
+                                                        <?php while ($row = $vehiculos->fetch_assoc()) { ?>
+                                                            <tr>
+                                                                <td><?php echo htmlspecialchars($row["Cedula"]); ?></td>
+                                                                <td><?php echo htmlspecialchars($row["Nombre"]); ?></td>
+                                                                <td><?php echo htmlspecialchars($row["Marca"]); ?></td>
+                                                                <td><?php echo htmlspecialchars($row["Modelo"]); ?></td>
+                                                                <td><?php echo htmlspecialchars($row["Precio"]); ?></td>
+                                                            </tr>
+                                                        <?php } ?>
+                                                    <?php } else { ?>
+                                                        <tr>
+                                                            <td colspan="5">No hay vehículos registrados</td>
+                                                        </tr>
+                                                    <?php } ?>
                                                 </tbody>
                                             </table>
                                         </div>

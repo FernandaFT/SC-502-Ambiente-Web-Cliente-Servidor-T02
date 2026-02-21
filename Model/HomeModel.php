@@ -37,3 +37,14 @@ function RegistrarVehiculo($marca, $modelo, $color, $precio, $idVendedor)
     CloseDataBase($context);
     return $result;
 }
+
+function ConsultarVehiculos()
+{
+    $context = OpenDataBase();
+
+    $sql = "CALL sp_ConsultarVehiculos()";
+    $result = $context->query($sql);
+
+    CloseDataBase($context);
+    return $result;
+}
